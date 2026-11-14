@@ -86,7 +86,7 @@ class CompiledApp {
       AG: x0 => x0.type,
       AH: x0 => x0.innerWidth,
       AI: () => globalThis.WeakRef,
-      AJ: x0 => x0.getReader(),
+      AJ: (x0,x1) => x0.share(x1),
       B: s => printToConsole(s),
       BB: Function.prototype.call.bind(String.prototype.toLowerCase),
       BC: (b, o) => new DataView(b, o),
@@ -100,7 +100,7 @@ class CompiledApp {
         new Uint8Array(dst).set(new Uint8Array(o, offsetInBytes, lengthInBytes));
         return new DataView(dst);
       },
-      BJ: x0 => x0.value,
+      BJ: x0 => x0.message,
       C: Function.prototype.call.bind(Number.prototype.toString),
       CB: (o, p, r) => o.replace(p, () => r),
       CC: (b, o, l) => new DataView(b, o, l),
@@ -110,7 +110,7 @@ class CompiledApp {
       CG: x0 => x0.shiftKey,
       CH: x0 => x0.clientWidth,
       CI: (a, s, e) => a.slice(s, e),
-      CJ: x0 => x0.done,
+      CJ: x0 => x0.name,
       D: Function.prototype.call.bind(BigInt.prototype.toString),
       DB: (x0,x1) => { x0.lastIndex = x1 },
       DC: Function.prototype.call.bind(DataView.prototype.getUint8),
@@ -125,7 +125,7 @@ class CompiledApp {
       DG: x0 => x0.visibilityState,
       DH: (x0,x1) => x0.removeChild(x1),
       DI: (x0,x1,x2,x3,x4,x5) => x0.importKey(x1,x2,x3,x4,x5),
-      DJ: x0 => x0.read(),
+      DJ: (x0,x1,x2,x3) => x0.open(x1,x2,x3),
       E: (exn) => {
         let stackString = exn.toString();
         let frames = stackString.split('\n');
@@ -154,7 +154,7 @@ class CompiledApp {
       EG: x0 => x0.disconnect(),
       EH: x0 => x0.firstChild,
       EI: (x0,x1,x2,x3) => x0.deriveBits(x1,x2,x3),
-      EJ: x0 => x0.body,
+      EJ: (x0,x1,x2) => ({files: x0,title: x1,text: x2}),
       F: () => new Error().stack,
       FB: o => o instanceof RegExp,
       FC: Function.prototype.call.bind(DataView.prototype.getFloat64),
@@ -164,7 +164,7 @@ class CompiledApp {
       FG: x0 => new Intl.Locale(x0),
       FH: x0 => x0.viewConstraints,
       FI: x0 => x0.subtle,
-      FJ: (x0,x1) => new OffscreenCanvas(x0,x1),
+      FJ: (x0,x1) => ({files: x0,text: x1}),
       G: s => JSON.stringify(s),
       GB: x0 => x0.dotAll,
       GC: o => {
@@ -178,7 +178,7 @@ class CompiledApp {
       GG: x0 => x0.region,
       GH: x0 => x0.hostElement,
       GI: x0 => x0.crypto,
-      GJ: x0 => x0.assetBase,
+      GJ: (x0,x1) => ({files: x0,title: x1}),
       H: Function.prototype.call.bind(Number.prototype.toString),
       HB: x0 => x0.unicode,
       HC: (t, s) => t.set(s),
@@ -188,7 +188,7 @@ class CompiledApp {
       HG: x0 => x0.script,
       HH: (wasmFunction,f) => finalizeWrapper(f, function(x0) { return wasmFunction(f,arguments.length,x0) }),
       HI: () => globalThis.window,
-      HJ: x0 => x0.loader,
+      HJ: x0 => ({files: x0}),
       I: Function.prototype.call.bind(String.prototype.indexOf),
       IB: x0 => x0.ignoreCase,
       IC: Function.prototype.call.bind(DataView.prototype.setFloat32),
@@ -198,7 +198,7 @@ class CompiledApp {
       IG: x0 => x0.language,
       IH: x0 => ({runApp: x0}),
       II: (x0,x1) => x0.getRandomValues(x1),
-      IJ: () => globalThis._flutter,
+      IJ: (x0,x1) => ({title: x0,text: x1}),
       J: (s, p, i) => s.lastIndexOf(p, i),
       JB: x0 => x0.multiline,
       JC: Function.prototype.call.bind(DataView.prototype.getFloat32),
@@ -209,6 +209,7 @@ class CompiledApp {
       JG: x0 => x0.languages,
       JH: Function.prototype.call.bind(DataView.prototype.setBigInt64),
       JI: () => globalThis.crypto,
+      JJ: x0 => x0.length,
       K: (exn) => {
         if (exn instanceof Error) {
           return exn.stack;
@@ -228,6 +229,7 @@ class CompiledApp {
       KG: (x0,x1) => x0.observe(x1),
       KH: Function.prototype.call.bind(DataView.prototype.getBigInt64),
       KI: l => new DataView(new ArrayBuffer(l)),
+      KJ: x0 => x0.getReader(),
       L: o => o === undefined,
       LB: (x0,x1) => x0[x1],
       LC: Function.prototype.call.bind(DataView.prototype.getUint32),
@@ -237,6 +239,7 @@ class CompiledApp {
       LG: (wasmFunction,f) => finalizeWrapper(f, function(x0,x1) { return wasmFunction(f,arguments.length,x0,x1) }),
       LH: (o, start, length) => new BigInt64Array(o.buffer, o.byteOffset + start, length),
       LI: (x0,x1,x2) => x0.insertBefore(x1,x2),
+      LJ: x0 => x0.value,
       M: o => String(o),
       MB: x0 => x0.length,
       MC: Function.prototype.call.bind(DataView.prototype.setUint32),
@@ -246,6 +249,7 @@ class CompiledApp {
       MG: x0 => new ResizeObserver(x0),
       MH: () => typeof dartUseDateNowForTicks !== "undefined",
       MI: x0 => x0.id,
+      MJ: x0 => x0.done,
       N: (c) =>
       queueMicrotask(() => dartInstance.exports.$invokeCallback(c)),
       NB: o => o,
@@ -260,6 +264,7 @@ class CompiledApp {
       NG: x0 => globalThis.parseFloat(x0),
       NH: () => Date.now(),
       NI: x0 => x0.offsetHeight,
+      NJ: x0 => x0.read(),
       O: (x0,x1) => x0.didCreateEngineInitializer(x1),
       OB: o => {
         if (o === undefined || o === null) return 0;
@@ -273,6 +278,7 @@ class CompiledApp {
       OG: (x0,x1) => x0.getComputedStyle(x1),
       OH: () => 1000 * performance.now(),
       OI: x0 => x0.offsetWidth,
+      OJ: x0 => x0.body,
       P: (wasmFunction,f) => finalizeWrapper(f, function(x0) { return wasmFunction(f,arguments.length,x0) }),
       PB: (x0,x1) => x0.exec(x1),
       PC: Function.prototype.call.bind(DataView.prototype.setInt32),
@@ -282,6 +288,7 @@ class CompiledApp {
       PG: x0 => x0.documentElement,
       PH: x0 => new Uint8Array(x0),
       PI: x0 => x0.stopPropagation(),
+      PJ: (x0,x1) => new OffscreenCanvas(x0,x1),
       Q: (wasmFunction,f) => finalizeWrapper(f, function() { return wasmFunction(f,arguments.length) }),
       QB: x0 => x0.index,
       QC: o => {
@@ -295,6 +302,7 @@ class CompiledApp {
       QG: x0 => x0.computedStyleMap(),
       QH: (x0,x1,x2) => x0.slice(x1,x2),
       QI: x0 => x0.disabled,
+      QJ: x0 => x0.assetBase,
       R: (x0,x1) => ({initializeEngine: x0,autoStart: x1}),
       RB: x0 => x0.flags,
       RC: o => o instanceof Uint16Array,
@@ -304,6 +312,7 @@ class CompiledApp {
       RG: (x0,x1) => x0.get(x1),
       RH: (x0,x1) => x0.decode(x1),
       RI: (x0,x1) => { x0.min = x1 },
+      RJ: x0 => x0.loader,
       S: (wasmFunction,f) => finalizeWrapper(f, function(x0,x1) { return wasmFunction(f,arguments.length,x0,x1) }),
       SB: s => s.trim(),
       SC: Function.prototype.call.bind(DataView.prototype.getUint16),
@@ -313,6 +322,7 @@ class CompiledApp {
       SG: (wasmFunction,f) => finalizeWrapper(f, function(x0) { return wasmFunction(f,arguments.length,x0) }),
       SH: (x0,x1) => x0.adoptText(x1),
       SI: (x0,x1) => { x0.max = x1 },
+      SJ: () => globalThis._flutter,
       T: x0 => new Promise(x0),
       TB: (a, s) => a.join(s),
       TC: Function.prototype.call.bind(DataView.prototype.setUint16),
@@ -703,7 +713,7 @@ class CompiledApp {
       zF: x0 => x0.offsetX,
       zG: x0 => x0.clientHeight,
       zH: x0 => x0.deref(),
-      zI: x0 => x0.length,
+      zI: (x0,x1) => x0.canShare(x1),
 
     };
 
