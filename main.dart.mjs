@@ -86,7 +86,7 @@ class CompiledApp {
       AG: x0 => x0.type,
       AH: x0 => x0.innerWidth,
       AI: () => globalThis.WeakRef,
-      AJ: x0 => x0.done,
+      AJ: x0 => x0.getReader(),
       B: s => printToConsole(s),
       BB: Function.prototype.call.bind(String.prototype.toLowerCase),
       BC: (b, o) => new DataView(b, o),
@@ -100,7 +100,7 @@ class CompiledApp {
         new Uint8Array(dst).set(new Uint8Array(o, offsetInBytes, lengthInBytes));
         return new DataView(dst);
       },
-      BJ: x0 => x0.read(),
+      BJ: x0 => x0.value,
       C: Function.prototype.call.bind(Number.prototype.toString),
       CB: (o, p, r) => o.replace(p, () => r),
       CC: (b, o, l) => new DataView(b, o, l),
@@ -110,7 +110,7 @@ class CompiledApp {
       CG: x0 => x0.shiftKey,
       CH: x0 => x0.clientWidth,
       CI: (a, s, e) => a.slice(s, e),
-      CJ: x0 => x0.body,
+      CJ: x0 => x0.done,
       D: Function.prototype.call.bind(BigInt.prototype.toString),
       DB: (x0,x1) => { x0.lastIndex = x1 },
       DC: Function.prototype.call.bind(DataView.prototype.getUint8),
@@ -125,7 +125,7 @@ class CompiledApp {
       DG: x0 => x0.visibilityState,
       DH: (x0,x1) => x0.removeChild(x1),
       DI: (x0,x1,x2,x3,x4,x5) => x0.importKey(x1,x2,x3,x4,x5),
-      DJ: (x0,x1) => new OffscreenCanvas(x0,x1),
+      DJ: x0 => x0.read(),
       E: (exn) => {
         let stackString = exn.toString();
         let frames = stackString.split('\n');
@@ -154,7 +154,7 @@ class CompiledApp {
       EG: x0 => x0.disconnect(),
       EH: x0 => x0.firstChild,
       EI: (x0,x1,x2,x3) => x0.deriveBits(x1,x2,x3),
-      EJ: x0 => x0.assetBase,
+      EJ: x0 => x0.body,
       F: () => new Error().stack,
       FB: o => o instanceof RegExp,
       FC: Function.prototype.call.bind(DataView.prototype.getFloat64),
@@ -164,7 +164,7 @@ class CompiledApp {
       FG: x0 => new Intl.Locale(x0),
       FH: x0 => x0.viewConstraints,
       FI: x0 => x0.subtle,
-      FJ: x0 => x0.loader,
+      FJ: (x0,x1) => new OffscreenCanvas(x0,x1),
       G: s => JSON.stringify(s),
       GB: x0 => x0.dotAll,
       GC: o => {
@@ -178,7 +178,7 @@ class CompiledApp {
       GG: x0 => x0.region,
       GH: x0 => x0.hostElement,
       GI: x0 => x0.crypto,
-      GJ: () => globalThis._flutter,
+      GJ: x0 => x0.assetBase,
       H: Function.prototype.call.bind(Number.prototype.toString),
       HB: x0 => x0.unicode,
       HC: (t, s) => t.set(s),
@@ -188,6 +188,7 @@ class CompiledApp {
       HG: x0 => x0.script,
       HH: (wasmFunction,f) => finalizeWrapper(f, function(x0) { return wasmFunction(f,arguments.length,x0) }),
       HI: () => globalThis.window,
+      HJ: x0 => x0.loader,
       I: Function.prototype.call.bind(String.prototype.indexOf),
       IB: x0 => x0.ignoreCase,
       IC: Function.prototype.call.bind(DataView.prototype.setFloat32),
@@ -197,6 +198,7 @@ class CompiledApp {
       IG: x0 => x0.language,
       IH: x0 => ({runApp: x0}),
       II: (x0,x1) => x0.getRandomValues(x1),
+      IJ: () => globalThis._flutter,
       J: (s, p, i) => s.lastIndexOf(p, i),
       JB: x0 => x0.multiline,
       JC: Function.prototype.call.bind(DataView.prototype.getFloat32),
@@ -587,7 +589,7 @@ class CompiledApp {
       rF: x0 => x0.bottom,
       rG: x0 => x0.pointerType,
       rH: () => new WeakMap(),
-      rI: (x0,x1) => x0.removeItem(x1),
+      rI: x0 => x0.userAgent,
       s: (a, i, v) => a[i] = v,
       sB: x0 => new ArrayBuffer(x0),
       sC: o => typeof o === 'function' && o[jsWrappedDartFunctionSymbol] === true,
@@ -596,7 +598,7 @@ class CompiledApp {
       sF: x0 => x0.top,
       sG: x0 => x0.pointerId,
       sH: x0 => x0.debugSkipFontRetryDelay,
-      sI: x0 => x0.localStorage,
+      sI: x0 => x0.navigator,
       t: (l, r) => l === r,
       tB: (x0,x1,x2) => new Uint8Array(x0,x1,x2),
       tC: f => f.dartFunction,
@@ -605,7 +607,7 @@ class CompiledApp {
       tF: x0 => x0.right,
       tG: x0 => x0.getCoalescedEvents(),
       tH: (x0,x1,x2) => x0.set(x1,x2),
-      tI: (x0,x1) => x0.getItem(x1),
+      tI: (x0,x1) => x0.removeItem(x1),
       u: s => s.toUpperCase(),
       uB: (x0,x1,x2) => new DataView(x0,x1,x2),
       uC: (wasmFunction,f) => finalizeWrapper(f, function(x0) { return wasmFunction(f,arguments.length,x0) }),
@@ -614,7 +616,7 @@ class CompiledApp {
       uF: x0 => x0.left,
       uG: (x0,x1) => x0.getModifierState(x1),
       uH: x0 => x0.fontFallbackBaseUrl,
-      uI: (x0,x1) => x0.key(x1),
+      uI: x0 => x0.localStorage,
       v: Object.is,
       vB: (o, p) => o[p],
       vC: (wasmFunction,f) => finalizeWrapper(f, function(x0,x1) { return wasmFunction(f,arguments.length,x0,x1) }),
@@ -623,7 +625,7 @@ class CompiledApp {
       vF: x0 => x0.clientY,
       vG: x0 => x0.blur(),
       vH: (handle) => clearInterval(handle),
-      vI: x0 => x0.length,
+      vI: (x0,x1) => x0.getItem(x1),
       w: (x0,x1) => x0.test(x1),
       wB: (o) => new DataView(o.buffer, o.byteOffset, o.byteLength),
       wC: (p, s, f) => p.then(s, (e) => f(e, e === undefined)),
@@ -633,7 +635,7 @@ class CompiledApp {
       wG: x0 => x0.button,
       wH: (ms, c) =>
       setInterval(() => dartInstance.exports.$invokeCallback(c), ms),
-      wI: (x0,x1,x2) => x0.setItem(x1,x2),
+      wI: (x0,x1) => x0.key(x1),
       x: o => o,
       xB: Function.prototype.call.bind(Object.getOwnPropertyDescriptor(DataView.prototype, 'byteLength').get),
       xC: (o, i) => o[i],
@@ -660,7 +662,7 @@ class CompiledApp {
       yF: x0 => x0.offsetY,
       yG: x0 => x0.height,
       yH: x0 => new WeakRef(x0),
-      yI: x0 => x0.getReader(),
+      yI: (x0,x1,x2) => x0.setItem(x1,x2),
       z: (jsArray, jsArrayOffset, wasmArray, wasmArrayOffset, length) => {
         const setValue = dartInstance.exports.$wasmI8ArraySet;
         for (let i = 0; i < length; i++) {
@@ -701,7 +703,7 @@ class CompiledApp {
       zF: x0 => x0.offsetX,
       zG: x0 => x0.clientHeight,
       zH: x0 => x0.deref(),
-      zI: x0 => x0.value,
+      zI: x0 => x0.length,
 
     };
 
